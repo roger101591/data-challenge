@@ -13,7 +13,7 @@ WHERE i.date_created >= date_sub(curdate(), interval 7 day)
 
 ;
 
-#get total hairbrush sales in last month
+#get total hairbrush sales in last month; can include multiple types of hairbrushes
 
 
 SELECT product_id,product_name,sum(line_amount) as 'Ordered_Amount'
