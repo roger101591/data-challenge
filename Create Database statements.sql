@@ -38,8 +38,7 @@ create table orders(
 
     primary key (order_id),
     foreign key (customer_id)
-
-		references customers(customer_id)
+	references customers(customer_id)
         on delete cascade
         on update cascade
 	)
@@ -55,12 +54,11 @@ create table orders_items(
     date_created datetime default current_timestamp, 
 	primary key(order_id, product_id),
     foreign key (order_id)
-		references orders(order_id)
+	references orders(order_id)
         on delete cascade
         on update cascade,
-	foreign key (product_id)
-
-		references products(product_id)
+    foreign key (product_id)
+        references products(product_id)
         on delete cascade
         on update cascade
 )
