@@ -11,11 +11,12 @@ create table customers(
     )
     
 ;
+#decimal field length complies with Generally Accepted Accounting Principles (GAAP) rules src: https://www.mysqltutorial.org/mysql-decimal/
 
 create table products(
 	product_id integer not null auto_increment,
     product_name varchar(40),
-#decimal field length complies with Generally Accepted Accounting Principles (GAAP) rules src: https://www.mysqltutorial.org/mysql-decimal/
+
     product_price decimal(19,4),
     product_cost decimal(19,4),
     product_status varchar(20),
@@ -24,24 +25,27 @@ create table products(
     )
     
 ;
+#order_source might refer to a URL so allowing up to 65k characters for URL to be expressed
+#changes in the customer_id in parent table `customers` will affect child table `orders` to ensure atomicity
 
 create table orders(
 	order_id integer not null auto_increment,
     customer_id integer not null,
     order_total decimal(19,4),
-#order_source might refer to a URL so allowing up to 65k characters for URL to be expressed
+
     order_source TEXT,
     date_created datetime default current_timestamp,
 
     primary key (order_id),
     foreign key (customer_id)
-#changes in the customer_id in parent table `customers` will affect child table `orders` to ensure atomicity
+
 		references customers(customer_id)
         on delete cascade
         on update cascade
 	)
     
 ;
+#changes in the customer_id in parent table `products` will affect child table `orders_items` to ensure atomicity
 
 create table orders_items(
 	order_id integer not null,
@@ -55,7 +59,7 @@ create table orders_items(
         on delete cascade
         on update cascade,
 	foreign key (product_id)
-#changes in the customer_id in parent table `products` will affect child table `orders_items` to ensure atomicity
+
 		references products(product_id)
         on delete cascade
         on update cascade
