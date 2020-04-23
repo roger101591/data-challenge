@@ -1,3 +1,4 @@
+#python script to insert data
 #import libraries
 import pymysql
 from sqlalchemy import create_engine
